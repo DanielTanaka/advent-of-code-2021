@@ -11,9 +11,11 @@ namespace AdventOfCode2021
             try
             {
                 var filePath = @"";
-                var measurements = Parser.GetIntegerListFromFile(filePath);
+                var measurements = Parser.GetIntegersListFromFile(filePath);
                 var increasingMeasurementsQuantity = DayOne.GetIncreasingMeasurementsQuantity(measurements);
-                Console.WriteLine($"Quantity of increasing measurements: {increasingMeasurementsQuantity}");
+                var basedOnSlidingWindows = DayOne.GetIncreasingMeasurementBasedOnSlidingWindows(measurements);
+                Console.WriteLine($"Part 1: Quantity of increasing measurements: {increasingMeasurementsQuantity}");
+                Console.WriteLine($"Part 2: Quantity of increasing measurements based on Sliding Windows: {basedOnSlidingWindows}");
                 Console.ReadLine();
             }
             catch (Exception ex)

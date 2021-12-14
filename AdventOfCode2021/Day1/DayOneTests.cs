@@ -6,33 +6,45 @@ namespace AdventOfCode2021.Day1
 {
     public class DayOneTests
     {
-        [Theory]
-        [MemberData(nameof(GetIncreasingMeasurements), MemberType = typeof(DayOneTests))]
-        public void GetIncreasingMeasurementsQuantity_WithIncreasingMeasurements_ShouldCountProperly(IReadOnlyList<int> measurements, int expectedCounter)
+        private static readonly IReadOnlyList<int> Measurements = 
+            new List<int> { 199, 200, 208, 210, 200, 207, 240, 269, 269, 260, 263, 263 };
+        private static readonly IReadOnlyList<int> NonIncreasingMeasurements =
+            new List<int> { 200, 198, 194, 100, 10, 5 };
+
+        // Part 1
+        [Fact]
+        public void GetIncreasingMeasurementsQuantity_WithIncreasingMeasurements_ShouldCountProperly()
         {
-            var increasingMeasurementsCounter = DayOne.GetIncreasingMeasurementsQuantity(measurements);
+            var increasingMeasurementsCounter = DayOne.GetIncreasingMeasurementsQuantity(Measurements);
+            var expectedCounter = 7;
 
             increasingMeasurementsCounter.Should().Be(expectedCounter);
         }
 
-        [Theory]
-        [MemberData(nameof(GetNonIncreasingMeasurements), MemberType = typeof(DayOneTests))]
-        public void GetIncreasingMeasurementsQuantity_WithNoIncreasingMeasurements_ShouldReturnZero(IReadOnlyList<int> measurements)
+        [Fact]
+        public void GetIncreasingMeasurementsQuantity_WithNoIncreasingMeasurements_ShouldReturnZero()
         {
-            var increasingMeasurementsCounter = DayOne.GetIncreasingMeasurementsQuantity(measurements);
+            var increasingMeasurementsCounter = DayOne.GetIncreasingMeasurementsQuantity(NonIncreasingMeasurements);
 
             increasingMeasurementsCounter.Should().Be(0);
         }
 
-        public static IEnumerable<object[]> GetIncreasingMeasurements()
+        // Part 2
+        [Fact]
+        public void GetIncreasingMeasurementBasedOnSlidingWindows_WithIncreasingMeasurements_ShouldCountProperly()
         {
-            yield return new object[] { new List<int> { 199, 200, 208, 210, 200, 207, 240, 269, 260, 263 }, 7 };
-            yield return new object[] { new List<int> { 200, 202, 204, 206, 208 }, 4 };
+            var increasingMeasurementsQuantity = DayOne.GetIncreasingMeasurementBasedOnSlidingWindows(Measurements);
+            var expectedCounter = 5;
+
+            increasingMeasurementsQuantity.Should().Be(expectedCounter);
         }
 
-        public static IEnumerable<object[]> GetNonIncreasingMeasurements()
+        [Fact]
+        public void GetIncreasingMeasurementBasedOnSlidingWindows_WithNoIncreasingMeasurement_ShouldReturnZero()
         {
-            yield return new object[] { new List<int> { 200, 198, 194, 100, 10 } };
+            var increasingMeasurementsCounter = DayOne.GetIncreasingMeasurementBasedOnSlidingWindows(NonIncreasingMeasurements);
+
+            increasingMeasurementsCounter.Should().Be(0);
         }
     }
 }
